@@ -2,13 +2,11 @@
 clear all;close all;clc
 
 
-% Initialization
+% Constants
 dimensions = [2 3 4 5];  
 nTrials = 1e4;
 nEpochs = 20;
 eta = 0.05;
-counter = 0;
-
 
 
 for k = 1:length(dimensions)
@@ -17,6 +15,7 @@ for k = 1:length(dimensions)
     booleanInputs(booleanInputs==0) = -1;
     usedBool = [];
     index = 1;
+    counter = 0;
     for trial = 1:nTrials
         booleanOutputs = randi([0, 1], 2^n, 1);
         booleanOutputs(booleanOutputs==0) = -1;
@@ -59,5 +58,7 @@ for k = 1:length(dimensions)
               index = index + 1;
         end
     end
+    fprintf('Amount of linearly separable boolean functions are %.f in %.f dimensions\n',...
+        counter, n)
     
 end
