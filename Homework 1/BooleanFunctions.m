@@ -3,18 +3,20 @@ clear all;close all;clc
 
 
 % Initialization
-n = 2;
+dimensions = [2 3 4 5];  
 nTrials = 1e4;
 nEpochs = 20;
 eta = 0.05;
 counter = 0;
 
-booleanInputs = dec2bin(0:2^n-1)' - '0';
-booleanInputs(booleanInputs==0) = -1;
-usedBool = [];
-index = 1;
 
-%for n = 1:length(dimension)
+
+for k = 1:length(dimensions)
+    n = dimensions(k);
+    booleanInputs = dec2bin(0:2^n-1)' - '0';
+    booleanInputs(booleanInputs==0) = -1;
+    usedBool = [];
+    index = 1;
     for trial = 1:nTrials
         booleanOutputs = randi([0, 1], 2^n, 1);
         booleanOutputs(booleanOutputs==0) = -1;
@@ -57,4 +59,5 @@ index = 1;
               index = index + 1;
         end
     end
-%end
+    
+end
