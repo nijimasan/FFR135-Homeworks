@@ -9,7 +9,7 @@ errorProbabilities = zeros(1,length(p));
 
 for nPattern = 1:length(p)
     errorCounter = 0;
-
+    
     for trial = 1:nTrials
         randomPatterns = randi([0, 1], N, p(nPattern));
         randomPatterns(randomPatterns==0) = -1;

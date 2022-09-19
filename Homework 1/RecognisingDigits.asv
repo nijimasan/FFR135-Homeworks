@@ -10,21 +10,18 @@ x5=[ [ -1, 1, 1, -1, -1, -1, -1, 1, 1, -1],[ -1, 1, 1, -1, -1, -1, -1, 1, 1, -1]
 
 patterns = [x1; x2; x3; x4; x5];
 N = length(x1);
-
-% Get weight matrix
 w = (1/N)* patterns' * patterns;
 w = w - diag(diag(w));
 
-% Initializer input patterns
 inputPatternOne = [[-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [1, 1, 1, -1, -1, -1, -1, 1, 1, 1]];
 inputPatternTwo = [[-1, -1, -1, -1, -1, -1, -1, -1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, -1, -1], [-1, -1, -1, -1, -1, 1, 1, 1, -1, -1], [-1, -1, -1, -1, -1, 1, 1, 1, -1, -1], [-1, -1, -1, -1, -1, 1, 1, 1, -1, -1], [-1, -1, -1, -1, -1, 1, 1, 1, -1, -1], [-1, -1, -1, -1, -1, 1, 1, 1, -1, -1], [1, 1, 1, 1, 1, 1, 1, 1, -1, -1], [1, 1, 1, 1, 1, 1, 1, 1, -1, -1], [1, 1, 1, -1, -1, -1, -1, -1, -1, -1], [1, 1, 1, -1, -1, -1, -1, -1, -1, -1], [1, 1, 1, -1, -1, -1, -1, -1, -1, -1], [1, 1, 1, -1, -1, -1, -1, -1, -1, -1], [1, 1, 1, -1, -1, -1, -1, -1, -1, -1], [1, 1, 1, 1, 1, 1, 1, 1, -1, -1], [1, 1, 1, 1, 1, 1, 1, 1, -1, -1]];
 inputPatternThree = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, 1, 1, 1, 1, -1, -1, -1], [-1, -1, 1, 1, 1, 1, 1, 1, -1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, 1, 1, 1, -1, -1, 1, 1, 1, -1], [-1, -1, 1, 1, 1, 1, 1, 1, -1, -1], [1, 1, 1, -1, -1, -1, -1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
 
-inputPatterns = [inputPatternOne; inputPatternTwo; inputPatternThree];
+inputPatterns = [inputPatternOne, inputPatternTwo, inputPatternThree];
 
-% Loop over all input patterns
-for k = 1:height(inputPatterns)
-    inputPattern = inputPatterns(k,:);
+for k = 1:length(inputPatterns)
+    inputPattern = inputPatterns(k);
+
     while true
         updatedPattern = inputPattern;
         for i = 1:N
@@ -41,19 +38,22 @@ for k = 1:height(inputPatterns)
         end
     end
 
-% Visual representation of patterns
+
+
+%% Plot result to see what the distorted pattern converged to
 figure(k)
-visualInputPattern = reshape(inputPatterns(k,:),[10,16])';
-convergedPattern = reshape(updatedPattern, [10,16])';
+disturbed_pattern = reshape(inputPatterns(:,k),[10,16])';
+converged_pattern = reshape(updatedPattern, [10,16])';
 
 colormap(gray(256))
 subplot(1,2,1)
-image(((visualInputPattern+1)/2)*256)
-title("Distorted pattern")
+image(((disturbed_pattern+1)/2)*256)
+title("Distorted input pattern")
 
 subplot(1,2,2)
-image(((convergedPattern+1)/2)*256)
+image(((converged_pattern+1)/2)*256)
 title("Converged pattern")
+
 end
 
 
