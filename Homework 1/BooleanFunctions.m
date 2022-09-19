@@ -58,7 +58,7 @@ for k = 1:length(dimensions)
               index = index + 1;
         end
     end
-    fprintf('Amount of linearly separable boolean functions are %.f in %.f dimensions\n',...
+    fprintf('Amount of linearly separable boolean functions %.f in %.f dimensions\n',...
         counter, n)
     
 end
