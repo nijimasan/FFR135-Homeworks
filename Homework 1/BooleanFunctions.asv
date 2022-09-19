@@ -12,7 +12,10 @@ counter = 0;
 booleanInputs = [0 1 0 1;0 0 1 1]';
 
 usedBool = [];
-
+for dimension
 for trial = 1:nTrials
-    
+    randomBoolean = randi([0, 1], 2^n, 1);
+    randomBoolean(randomBoolean==0) = -1;
+
+    if randomBool 
 end
