@@ -17,13 +17,26 @@ inputPattern = inputPatternCenter./inputPatternStd;
 
 
 % Intialize
-N = 1e4;
-M1 = 3; % Number of neurons in hidden layer
+N = length(inputPattern);
+M1 = 3;     % Number of neurons in hidden layer
 pVal = height(validationSet);
+eta = 0.001;    % Learning rate
 
 % Initialize weights and thresholds
 W1 = normrnd(0, 1, [M1, 2]);
+W2 = normrnd(0, 1, [M1, 1]);
 thresholds = zeros(M1,1);
 
-% Hidden layer
+%% Loop over epochs
+pattern = randi(N);
+t = target(pattern,1);
+x = inputPattern(mu,1:2)';
+
+V = tanh(LocalField(thresholds,W1,x));
+O = tanh(LocalField(thresholds,W2,V));
+
+delta = gPrime(LocalField(thresholds,W2,V)).*(t-O);
+
+% Backpropagate error
+
 
