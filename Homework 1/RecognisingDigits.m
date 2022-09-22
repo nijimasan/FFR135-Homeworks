@@ -23,7 +23,7 @@ inputPatternThree = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, 1, 1
 inputPatterns = [inputPatternOne; inputPatternTwo; inputPatternThree];
 
 % Loop over all input patterns
-for k = 1:height(inputPatterns)
+for k = 1:size(inputPatterns,1)
     inputPattern = inputPatterns(k,:);
     while true
         updatedPattern = inputPattern;
