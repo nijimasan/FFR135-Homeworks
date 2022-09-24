@@ -1,6 +1,6 @@
 clear all;close all;clc
 
-% Datahandling
+% Load input data
 trainingSet = load('training_set.csv');
 validationSet = load('validation_set.csv');
 
@@ -20,10 +20,9 @@ N = length(inputPattern);
 M1 = 8;     % Number of neurons in hidden layer
 pVal = height(validationSet);
 eta = 0.01;    % Learning rate
-C = 1;
 errors = zeros(1,pVal);
-maxIterations = 10000;
-output = zeros(pVal,1);
+maxIterations = 5000;
+
 
 % Initialize weights and thresholds
 W1 = normrnd(0, 1, [M1, 2]);
@@ -54,15 +53,17 @@ for k = 1:maxIterations
     end
     
     %% Compute error with validation set
+    output = zeros(pVal,1);
+
     for j = 1:pVal
         xValidation = validationSet(j,1:2)';
-        V = tanh(LocalField(thetaOne,W1,xValidation));
-        output(j) = tanh(LocalField(thetaTwo,W2,V));
+        vValidation = tanh(LocalField(thetaOne,W1,xValidation));
+        output(j) = tanh(LocalField(thetaTwo,W2,vValidation));
     end
     
     validationTargets = validationSet(:,3);
     C = ClassificationError(pVal,output,validationTargets);
-
+    fprintf('Classification error: %.3f Iteration: %.f\n',C,k)
     if C < 0.12
         break
     end
