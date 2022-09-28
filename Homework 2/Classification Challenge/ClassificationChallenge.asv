@@ -37,6 +37,7 @@ layers = [ ...
     fullyConnectedLayer(10)
     softmaxLayer
     classificationLayer];
+
 %%
 % Train network
 options = trainingOptions( ...
@@ -54,9 +55,20 @@ save network
 
 %%
 %Classification accuracy
-load Network.mat
-network = Network()
-classification = classify(Network,xTest2);
+%clc
+%load network.mat
+testOneClassification = classify(network,xTest);
+classificationAccuracy = sum(testOneClassification==tTest)/numel(tTest);
+fprintf('\nClassification Accuracy: %4.4f\n',classificationAccuracy)
+
+
+
+
+test2Classification = classify(network,xTest2);
+test2Classification = string(test2Classification);
+test2Classification = double(test2Classification);
+csvwrite('classifications.csv',test2Classification);
+
 
 
 
