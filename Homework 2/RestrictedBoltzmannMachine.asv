@@ -19,29 +19,12 @@ x = ...
 % Initialize variables
 N = 3;
 M = [1 2 4 8];
-eta = 0.01;
-k = 200;
+learningRate = 0.01;
 
 
-% Iteration variables
-counter = 0;
-nTrials = 100;
-
-
-while true
-    for trial = 1:nTrials
-        dW = 0;
-        dTheta_h = 0;
-        dTheta_v = 0;
-        for minibatch = 1:20
-            mu = randi(4);
-
-        end
-    end
-end
-
-
-
+% Initialize layers, thresholds and weights
+V = zeros(1,M);
+thetaH
 
 
 
