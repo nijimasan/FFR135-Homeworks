@@ -26,9 +26,10 @@ eta = 0.01;
 % Iteration variables
 counter = 0;
 nTrials = 100;
-<<<<<<< HEAD
 minibatchSize = 20;
 k = 200;
+N_out = 3000;
+N_in = 2000;
 
 
 V = zeros(N,1);
@@ -73,8 +74,10 @@ while true
                     end
                 end
                 
-                b_h = w'*v - theta_h;
+                b_h = w*V - theta_h;
                 Pb_h = 1 ./ (1-exp(-2.*b_h));
+
+               
                 for i = 1:M
                     r = rand();
                     if r < Pb_h(i)
@@ -82,25 +85,44 @@ while true
                     else
                         h(j) = -1;
                     end
-
                 end
-                    
-                    
-
             end
-                
 
+           %Error computation and learning rule
+           dW = dW + eta*(tanh(b0_h)*v0 - tanh(b_h)*V');
+           dTheta_h = dTheta_h - eta*(v_0-V);
+           dTheta_v = dTheta_v - eta*(tanh(b_h0) - tanh(b_h));
 
+        end
+        
+        %Update weights and thresholds
+        w = w + dW;
+        theta_h = theta_h + dTheta_h;
+        theta_v = theta_v + dTheta_v;
 
+    end
+    
+    for i = 1:N_out
+        indexPattern = randi(height(x));
+        V = x(indexPattern,:);
+        b_h = w*V - theta_h;
+        
+        Pb_h = 1 ./ (1-exp(-2.*b_h));
 
+        for j = 1:M
+            r = rand();
+            if r < Pb_h(j)
+                h(j) = 1;
+            else
+                h(j) = -1;
+            end
+        end
+
+     
+        for p = 1:N_in
+        %%% here
         end
     end
-    break
-
-        for minibatch = 1:20
-            mu = randi(4);
-
-        end
 
 end
 
